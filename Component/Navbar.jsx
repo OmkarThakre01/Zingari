@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   FaSearch,
   FaUserAlt,
@@ -28,13 +29,13 @@ const Navbar = () => {
 
         <nav className="flex justify-between items-center px-4 md:px-8 py-4 bg-white relative">
           {/* Logo */}
-          <a href="#" className="font-bold text-[#b21919] text-xl sm:text-2xl">
+          <Link to="/" className="font-bold text-[#b21919] text-xl sm:text-2xl">
             Zingari
-          </a>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center gap-6">
-            <a href="#" className="text-[#5D4037] font-medium">Home</a>
+            <Link to="/" className="text-[#5D4037] font-medium">Home</Link>
 
             {/* Collections Dropdown */}
             <div className="relative">
@@ -48,34 +49,34 @@ const Navbar = () => {
 
               {desktopDropdown && (
                 <div className="absolute top-full left-0 mt-2 bg-white shadow-md rounded-md min-w-[180px] z-50">
-                  <a
-                    href="#"
+                  <Link
+                    to="/collections/spices"
                     className="block px-4 py-2 text-sm hover:bg-gray-100 text-[#5D4037]"
                     onClick={() => setDesktopDropdown(false)}
                   >
                     Spices
-                  </a>
-                  <a
-                    href="#"
+                  </Link>
+                  <Link
+                    to="/collections/masala-mixes"
                     className="block px-4 py-2 text-sm hover:bg-gray-100 text-[#5D4037]"
                     onClick={() => setDesktopDropdown(false)}
                   >
                     Masala Mixes
-                  </a>
-                  <a
-                    href="#"
+                  </Link>
+                  <Link
+                    to="/collections/specialty-packs"
                     className="block px-4 py-2 text-sm hover:bg-gray-100 text-[#5D4037]"
                     onClick={() => setDesktopDropdown(false)}
                   >
                     Specialty Packs
-                  </a>
+                  </Link>
                 </div>
               )}
             </div>
 
-            <a href="#" className="text-[#5D4037] font-medium">About</a>
-            <a href="#" className="text-[#5D4037] font-medium">Recipes</a>
-            <a href="#" className="text-[#5D4037] font-medium">Contact</a>
+            <Link to="/about" className="text-[#5D4037] font-medium">About</Link>
+            <Link to="/recipes" className="text-[#5D4037] font-medium">Recipes</Link>
+            <Link to="/contact" className="text-[#5D4037] font-medium">Contact</Link>
           </div>
 
           {/* Desktop Icons */}
@@ -119,7 +120,7 @@ const Navbar = () => {
 
         {/* Mobile Menu Items */}
         <div className="flex flex-col justify-center items-center gap-6 text-lg font-semibold text-[#5D4037] mt-10">
-          <a href="#" onClick={() => setOpen(false)}>Home</a>
+          <Link to="/" onClick={() => setOpen(false)}>Home</Link>
 
           {/* Mobile Dropdown */}
           <div className="w-full text-center px-6">
@@ -131,16 +132,16 @@ const Navbar = () => {
             </button>
             {collectionOpen && (
               <div className="flex flex-col gap-2 mt-2 text-base text-[#5D4037]">
-                <a href="#" onClick={() => setOpen(false)}>Spices</a>
-                <a href="#" onClick={() => setOpen(false)}>Masala Mixes</a>
-                <a href="#" onClick={() => setOpen(false)}>Specialty Packs</a>
+                <Link to="/collections/spices" onClick={() => setOpen(false)}>Spices</Link>
+                <Link to="/collections/masala-mixes" onClick={() => setOpen(false)}>Masala Mixes</Link>
+                <Link to="/collections/specialty-packs" onClick={() => setOpen(false)}>Specialty Packs</Link>
               </div>
             )}
           </div>
 
-          <a href="#" onClick={() => setOpen(false)}>About</a>
-          <a href="#" onClick={() => setOpen(false)}>Recipes</a>
-          <a href="#" onClick={() => setOpen(false)}>Contact</a>
+          <Link to="/about" onClick={() => setOpen(false)}>About</Link>
+          <Link to="/recipes" onClick={() => setOpen(false)}>Recipes</Link>
+          <Link to="/contact" onClick={() => setOpen(false)}>Contact</Link>
 
           {/* Action Icons */}
           <div className="flex justify-center gap-6 mt-6">

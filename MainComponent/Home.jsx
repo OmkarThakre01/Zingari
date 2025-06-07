@@ -11,16 +11,16 @@ import SubscribeSection from '../Component/SubscribeSection';
 
 const Home = () => {
   return (
-    <>
+    <div>
       <Hero />
       <SignatureCollections />
       <BestSellers />
       <LegacySection />
       <Testimonials />
       <AutoscrollSlider />
-      <MainCards/>
+     
       <SubscribeSection />
-    </>
+    </div>
   );
 };
 
