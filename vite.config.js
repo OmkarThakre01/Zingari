@@ -2,7 +2,14 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [tailwindcss(), react(), require("tailwind-scrollbar-hide")],
+export default defineConfig(async () => {
+  const scrollbarHide = await import('tailwind-scrollbar-hide');
+
+  return {
+    plugins: [
+      tailwindcss(),
+      react(),
+      scrollbarHide.default(), // .default is needed for CommonJS modules
+    ],
+  };
 });
