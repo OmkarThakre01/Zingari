@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProductCard from '../Component/SmallComp/ProductCard';
 
-const Spices = () => {
+const Spices = ({ cart, setCart, onProductSelect }) => {
+  const navigate = useNavigate();
+
   const spices = [
     {
       title: "Premium Turmeric Powder",
@@ -47,22 +50,24 @@ const Spices = () => {
     }
   ];
 
-  const handleAddToCart = () => {
-    // Implement cart functionality
-    console.log('Added to cart');
+  const addToCart = (product) => {
+    setCart([...cart, product]);
+  };
+
+  const handleViewDetails = (product) => {
+    onProductSelect(product);
+    navigate(`/product/${product.title.replace(/\s+/g, '-').toLowerCase()}`);
   };
 
   return (
     <div className="container mx-auto px-4 py-16 mt-16">
       <h1 className="text-4xl font-bold text-[#5D4037] mb-8 text-center">Premium Spices</h1>
-      
       <div className="max-w-4xl mx-auto mb-12">
         <p className="text-center text-gray-700">
           Discover our collection of premium, hand-ground spices sourced directly from the finest farms of Maharashtra.
           Each spice is carefully processed to preserve its authentic flavor and aroma.
         </p>
       </div>
-
       {/* Filters */}
       <div className="max-w-4xl mx-auto mb-8 flex flex-wrap justify-center gap-4">
         <button className="px-4 py-2 rounded-full bg-[#BF360C] text-white hover:bg-[#a32e09] transition">
@@ -78,7 +83,6 @@ const Spices = () => {
           Organic
         </button>
       </div>
-
       {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
         {spices.map((spice, index) => (
@@ -89,9 +93,25 @@ const Spices = () => {
             weight={spice.weight}
             rating={spice.rating}
             image={spice.image}
-            onAddToCart={handleAddToCart}
+            onAddToCart={() => addToCart(spice)}
+            onViewDetails={() => handleViewDetails(spice)}
           />
         ))}
+      </div>
+      <div className="mt-8">
+        <h2 className="text-2xl font-semibold text-[#5D4037] mb-4">Cart</h2>
+        {cart.length === 0 ? (
+          <p>Cart is empty</p>
+        ) : (
+          <ul>
+            {cart.map((item, index) => (
+              <li key={index} className="flex justify-between items-center border-b py-2">
+                <span>{item.title}</span>
+                <span>${item.price}</span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

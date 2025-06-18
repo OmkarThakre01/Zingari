@@ -13,11 +13,12 @@ import { RiMenu4Line } from "react-icons/ri";
 import { IoClose } from "react-icons/io5";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
-const Navbar = () => {
+const Navbar = ({ cart = [], user, onLogout }) => {
   const [open, setOpen] = useState(false);
   const [collectionOpen, setCollectionOpen] = useState(false);
   const [desktopDropdown, setDesktopDropdown] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const [userDropdown, setUserDropdown] = useState(false);
 
   return (
     <>
@@ -82,8 +83,71 @@ const Navbar = () => {
           {/* Desktop Icons */}
           <div className="hidden lg:flex items-center gap-6">
             <FaSearch className="text-[#5D4037] text-xl cursor-pointer" onClick={() => setShowSearch(!showSearch)} />
-            <FaCartShopping className="text-[#5D4037] text-xl cursor-pointer" />
-            <FaUserAlt className="text-[#5D4037] text-xl cursor-pointer" />
+            <Link to="/cart" className="relative">
+              <FaCartShopping className="text-[#5D4037] text-xl cursor-pointer" />
+              {cart.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5">
+                  {cart.length}
+                </span>
+              )}
+            </Link>
+            <div className="relative">
+              <FaUserAlt 
+                className="text-[#5D4037] text-xl cursor-pointer" 
+                onClick={() => setUserDropdown(!userDropdown)}
+              />
+              {userDropdown && (
+                <div className="absolute top-full right-0 mt-2 bg-white shadow-md rounded-md min-w-[180px] z-50">
+                  {user ? (
+                    <>
+                      <div className="px-4 py-2 text-sm text-gray-600 border-b">
+                        Welcome, {user.name}
+                      </div>
+                      <Link
+                        to="/profile"
+                        className="block px-4 py-2 text-sm hover:bg-gray-100 text-[#5D4037]"
+                        onClick={() => setUserDropdown(false)}
+                      >
+                        My Profile
+                      </Link>
+                      <Link
+                        to="/orders"
+                        className="block px-4 py-2 text-sm hover:bg-gray-100 text-[#5D4037]"
+                        onClick={() => setUserDropdown(false)}
+                      >
+                        My Orders
+                      </Link>
+                      <button
+                        onClick={() => {
+                          onLogout();
+                          setUserDropdown(false);
+                        }}
+                        className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 text-[#5D4037]"
+                      >
+                        Logout
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        to="/login"
+                        className="block px-4 py-2 text-sm hover:bg-gray-100 text-[#5D4037]"
+                        onClick={() => setUserDropdown(false)}
+                      >
+                        Login
+                      </Link>
+                      <Link
+                        to="/register"
+                        className="block px-4 py-2 text-sm hover:bg-gray-100 text-[#5D4037]"
+                        onClick={() => setUserDropdown(false)}
+                      >
+                        Register
+                      </Link>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Hamburger for Mobile */}
@@ -146,8 +210,35 @@ const Navbar = () => {
           {/* Action Icons */}
           <div className="flex justify-center gap-6 mt-6">
             <FaSearch className="text-xl" />
-            <FaCartShopping className="text-xl" />
-            <FaUserAlt className="text-xl" />
+            <Link to="/cart" className="relative" onClick={() => setOpen(false)}>
+              <FaCartShopping className="text-xl" />
+              {cart.length > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full px-1.5 py-0.5">
+                  {cart.length}
+                </span>
+              )}
+            </Link>
+            {user ? (
+              <div className="flex flex-col items-center">
+                <span className="text-sm mb-2">Welcome, {user.name}</span>
+                <Link to="/profile" className="text-sm mb-2" onClick={() => setOpen(false)}>My Profile</Link>
+                <Link to="/orders" className="text-sm mb-2" onClick={() => setOpen(false)}>My Orders</Link>
+                <button
+                  onClick={() => {
+                    onLogout();
+                    setOpen(false);
+                  }}
+                  className="text-sm text-red-600"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center">
+                <Link to="/login" className="text-sm mb-2" onClick={() => setOpen(false)}>Login</Link>
+                <Link to="/register" className="text-sm" onClick={() => setOpen(false)}>Register</Link>
+              </div>
+            )}
           </div>
         </div>
 

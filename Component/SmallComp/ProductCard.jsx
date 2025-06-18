@@ -1,7 +1,7 @@
 import React from "react";
 import { FaStar, FaStarHalfAlt, FaRegStar } from "react-icons/fa";
 
-const ProductCard = ({ image, title, price, weight = "200g", rating = 4.5, onAddToCart }) => {
+const ProductCard = ({ image, title, price, weight = "200g", rating = 4.5, onAddToCart, onViewDetails }) => {
   // Render stars based on rating
   const stars = [];
   const fullStars = Math.floor(rating);
@@ -18,29 +18,25 @@ const ProductCard = ({ image, title, price, weight = "200g", rating = 4.5, onAdd
   }
 
   return (
-    <div className="max-w-xs bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm transition duration-300 hover:shadow-md font-serif text-center p-4">
-      <img
-        src={image}
-        alt={title}
-        className="w-[150px] h-[150px] mx-auto object-contain mb-4"
-      />
-
-      <h2 className="text-md font-semibold text-gray-900 mb-1">{title}</h2>
-
-      <div className="flex justify-center items-center space-x-2 text-sm text-gray-600 mb-1">
-        <div className="flex">{stars}</div>
-        <span className="ml-1 text-[13px]">{rating}</span>
+    <div className="border p-4 rounded-lg shadow-md">
+      <img src={image} alt={title} className="w-full h-48 object-cover rounded-md mb-4" />
+      <h2 className="text-xl font-semibold">{title}</h2>
+      <p className="text-gray-700">${price}</p>
+      <p className="text-gray-700">Rating: {rating}</p>
+      <div className="flex justify-between mt-4">
+        <button
+          onClick={onAddToCart}
+          className="bg-[#BF360C] text-white px-4 py-2 rounded hover:bg-[#a32e09]"
+        >
+          Add to Cart
+        </button>
+        <button
+          onClick={onViewDetails}
+          className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
+        >
+          View Details
+        </button>
       </div>
-
-      <p className="text-[13px] text-gray-600 mb-1">{weight}</p>
-      <p className="text-[15px] font-semibold text-gray-800 mb-4">${price}</p>
-
-      <button
-        onClick={onAddToCart}
-        className="bg-[#b13916] hover:bg-[#9e2f0d] text-white px-6 py-2 rounded-full text-sm transition"
-      >
-        Add to Cart
-      </button>
     </div>
   );
 };
