@@ -35,19 +35,6 @@ CSS / TailwindCSS (optional depending on your setup)
 
 React Router (navigation)
 
-📂 Project Structure
-Zingari/
-│── src/
-│   ├── components/
-│   ├── pages/
-│   ├── assets/
-│   ├── App.jsx
-│   └── main.jsx
-│── public/
-│── package.json
-│── vite.config.js
-└── README.md
-
 🧑‍💻 Getting Started
 1️⃣ Install dependencies
 npm install
@@ -57,13 +44,6 @@ npm run dev
 
 3️⃣ Build for production
 npm run build
-
-📸 Screenshots (Optional – add images)
-
-You can add your UI screenshots here.
-
-![Homepage](./screens/Homepage.png)
-![Products](./screens/Products.png)
 
 📦 Deployment
 
